@@ -242,3 +242,5 @@ begin
 select * into V_hunter from zero where motor_name = 'yamaha';
 dbms_output.put_line(V_hunter. salesman_name);
 end;
+
+select
