@@ -1,0 +1,244 @@
+declare 
+V_num number (20):= 20;
+V_star number(20):= 40;
+V_cat number(20);
+begin 
+V_cat := V_num+V_star;
+dbms_output.put_line('the addition is:' || V_cat);
+end;
+
+declare 
+V_num number (20):= &V_num;
+V_star number(20):= &V_star;
+V_cat number(20);
+begin 
+V_cat := V_num+V_star;
+dbms_output.put_line('the addition is:' || V_cat);
+end;
+
+
+declare 
+V_num number (20);
+V_star number(20);
+V_cat number(20);
+begin 
+V_num:= 10;
+V_star:=20;
+V_cat := V_num+V_star;
+dbms_output.put_line('the addition is:' || V_cat);
+end;
+
+create table ipl (
+csk number(20) ,
+Mi varchar(20),
+RR varchar(20),
+srh varchar(20)
+);
+
+
+declare
+V_csk number(20);
+V_mi varchar(20);
+V_RR varchar(20);
+V_srh varchar(20);
+begin 
+insert into ipl
+values ('1','dhoni','thala','chepak');
+dbms_output.put_line(' the values dhoni is added');
+insert into ipl
+values ('2','rohit','thala','chepak');
+dbms_output.put_line(' the values rohit is added');
+insert into ipl
+values ('2','rutu','thala','chepak');
+dbms_output.put_line(' the values rutu is added');
+
+
+update ipl
+set csk  = 7 where csk =1;
+dbms_output.put_line('the value is updated');
+
+select csk, mi, rr, srh into V_csk,V_mi,V_RR,V_srh from ipl where mi = 'dhoni';
+dbms_output.put_line(' the thala is' || V_mi);
+end;
+
+select * from ipl;
+
+
+--anchor datatype
+
+declare
+V_num ipl.csk%type;
+
+--constant
+declare
+V_suriya constant number(20) default 100;
+begin
+dbms_output.put_line(' the values is :' || V_suriya);
+end;
+
+VARIABLE ret_val NUMBER
+begin
+    :ret_val:=4;
+    end;
+    /
+print ret_val;
+
+declare
+V_star number (20):=&V_star;
+V_dhini number(20):=&V_dhini;
+begin
+if (V_star<=10) or (V_dhini>=10)
+then
+ dbms_output.put_line(' the statement is true' || V_dhini );
+ --else
+ --dbms_output.put_line(' the stam is false');
+ 
+ end if;
+ dbms_output.put_line(' the stam is false');
+ end;
+
+declare 
+V_star number (20):=&V_staar;
+V_dhini number(20):=&V_dhini;
+V_rohit number(20):=&V_rohit;
+begin
+if (V_star = 10)
+then 
+ dbms_output.put_line(' the statement is true' || V_star );
+ elsif (V_dhini = 11)
+ then 
+  dbms_output.put_line(' the statement is true' || V_dhini );
+  elsif (V_rohit =12)
+  then
+    dbms_output.put_line(' the statement is true' || V_rohit );
+  else
+        dbms_output.put_line(' tnothis is correct:' ||V_star ||V_dhini||V_rohit );
+        end if;
+        end;
+
+declare
+V_number number(20):= &V_number;
+--V_bro number(20):= &V_tube;
+begin
+if mod (V_number,2) = 0
+then 
+dbms_output.put_line(' the value is even:' ||V_number);
+else
+dbms_output.put_line(' the value is odd:'|| V_number);
+end if;
+end;
+  
+declare
+V_number number := 0;
+V_values number ;
+begin
+loop
+V_number := V_number + 1;
+V_values:= 3* V_number;
+dbms_output.put_line('3' || 'X' || V_number || '=' || V_values);
+if ( V_number >= 20)
+then 
+exit;
+end if;
+end loop;
+end;
+
+declare
+V_number number := 1;
+V_values number ;
+begin
+
+while(V_number <= 10)loop
+V_values := 4*V_number;
+dbms_output.put_line('4' || 'X' || V_number || '=' || V_values);
+V_number:= V_number +1;
+end loop;
+end;
+
+begin 
+for V_num in 1 ..10 loop
+dbms_output.put_line(' the values is ' || V_num );
+end loop;
+end;
+
+
+
+declare
+V_num number(20);
+begin
+--V_num := 5*V_suriya ;
+for V_suriya in 1 .. 10 loop
+V_num := 5*V_suriya ;
+dbms_output.put_line('5' || 'X' || V_suriya || '=' || V_num);
+end loop;
+end;
+
+
+declare
+V_num number;
+begin 
+for V_suriya  in 1 .. 20 loop
+if mod( V_suriya,2) = 0
+then
+continue;
+end if;
+dbms_output.put_line(V_suriya);
+end loop;
+end;
+
+begin 
+for V_star in 1 .. 20 loop
+if mod (V_star, 2) = 1 then
+continue;
+end if;
+dbms_output.put_line(V_star);
+end loop;
+end;
+
+<<outer>>
+declare
+V_number number :=20;
+V_starr varchar(20) := 'suriya';
+V_dob date := sysdate;
+begin 
+declare
+V_number number := 200;
+V_star varchar(20) := 'ajith';
+V_dob date := sysdate;
+begin
+dbms_output.put_line('the values is' || V_star);
+dbms_output.put_line('the values is' || V_starr);
+dbms_output.put_line('the values is' ||outer. V_dob);
+end;
+dbms_output.put_line('the values is' || V_dob);
+dbms_output.put_line('the values is' || V_dob);
+end;
+
+declare
+V_num zero.matter%type;
+V_star V_num%type;
+V_motor zero.motor_name%type;
+V_salesman_name V_motor%type;
+begin
+insert into zero
+values ('1111','00011','honada','maadan');
+dbms_output.put_line('the values is inserted');
+insert into zero
+values ('1112','00022','yamaaha','maodi');
+dbms_output.put_line('the values is inserted');
+insert into zero
+values ('1113','00031','suzuahi','taom');
+dbms_output.put_line('the values is inserted');
+select * into V_num,V_star,V_motor,V_salesman_name from zero where motor_name = 'yamaha';
+dbms_output.put_line('the value is inserted:' || V_salesman_name );
+end;
+
+select * from zero;
+
+
+declare
+V_hunter zero %rowtype;
+begin
+select * into V_hunter from zero where motor_name = 'yamaha';
+dbms_output.put_line(V_hunter. salesman_name);
+end;
