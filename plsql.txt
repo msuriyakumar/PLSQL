@@ -324,3 +324,15 @@ type V_nest is table of Varchar2(20);
   dbms_output.put_line(V_hit(1));
   end;
   /
+ --varray
+  declare
+  type V_array is varray(20) of varchar2(20);
+  V_moon V_array;
+  begin
+  V_moon:=V_array();
+  V_moon.extend(10);
+  V_moon(1):= 'star';
+  V_moon(2):= 'bud';
+  dbms_output.put_line(V_moon(1));
+  end;
+  
