@@ -243,4 +243,41 @@ select * into V_hunter from zero where motor_name = 'yamaha';
 dbms_output.put_line(V_hunter. salesman_name);
 end;
 
-select*fgs
+--- index by table or associative array
+declare
+type V_index is table of varchar2(20)
+index by simple_integer;
+
+V_star V_index;
+
+begin
+
+V_star(1):= 'suriya';
+V_star(20):='kumar';
+dbms_output.put_line(V_star(20));
+end;
+/
+
+
+select * from election;
+-- by using %rowtype
+declare
+type V_boomer is table of election%rowtype
+index by simple_integer;
+V_hut V_boomer;
+begin
+select * into V_hut(3) from election where states = 'Liverpool';
+dbms_output.put_line(V_hut(3).nation);
+end;
+
+-- by using %type
+declare
+type V_boomer is table of election.lastname%type
+index by simple_integer;
+V_hut V_boomer;
+begin
+select lastname into V_hut(3) from election where states = 'Liverpool';
+dbms_output.put_line(V_hut(3));
+end;
+
+
