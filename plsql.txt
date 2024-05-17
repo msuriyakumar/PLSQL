@@ -280,4 +280,47 @@ select lastname into V_hut(3) from election where states = 'Liverpool';
 dbms_output.put_line(V_hut(3));
 end;
 
+---nested table
 
+declare
+type V_nest is table of varchar2(20);
+V_iron V_nest := V_nest();
+begin
+V_iron.extend(20);
+V_iron(11) := 'mass';
+V_iron(12) := 'tom';
+dbms_output.put_line(V_iron(11));
+end;
+/
+
+-- with array
+declare
+type V_nest is table of Varchar2(20);
+ V_sun V_nest := V_nest('the','hunter');
+ begin
+ V_sun.extend(20);
+ dbms_output.put_line(V_sun(1) ||' '|| V_sun(2));
+ end;
+ /
+ 
+ -- using %rowtype
+  declare 
+  type V_git is table of election%rowtype;
+  V_hub V_git := V_git();
+  begin
+  V_hub.extend(20);
+  select * into V_hub(1) from election where suriya = 'vijay';
+  dbms_output.put_line(V_hub(1).lastname);
+  end;
+  /
+  
+  -- using %type
+  declare
+  type V_bug is table of election.nation%type;
+  V_hit V_bug := V_bug();
+  begin
+  V_hit.extend(20);
+  select nation into V_hit(1) from election where suriya = 'vijay';
+  dbms_output.put_line(V_hit(1));
+  end;
+  /
