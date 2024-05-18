@@ -336,3 +336,208 @@ type V_nest is table of Varchar2(20);
   dbms_output.put_line(V_moon(1));
   end;
   
+
+--collection method 
+
+
+-- count in index by array
+declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+
+V_rcb(1):= 'virat';
+V_rcb(2):= 'faf';
+
+dbms_output.put_line(V_rcb.count);
+end;
+  
+-- count in nested table
+
+declare
+ 
+type V_ck is table of varchar2(20);
+ V_msd V_ck := V_ck();
+ begin
+ V_msd.extend(7);
+ V_msd(1):='hut';
+ V_msd(2):='ter';
+ dbms_output.put_line(V_msd.count);
+ end;
+ 
+--- count in varray
+
+declare
+type V_kkr is varray(20)of varchar2(20);
+V_srh V_kkr;
+begin
+V_srh:=V_kkr();
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+dbms_output.put_line(V_srh.count);
+end;
+  
+ --- first
+ 
+ declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+V_rcb(4):= 'viraat';
+
+V_rcb(1):= 'virat';
+V_rcb(6):= 'faf';
+V_rcb(5):= 'fbf';
+
+dbms_output.put_line(V_rcb.first);
+end;
+  
+--- last
+ declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+V_rcb(4):= 'viraat';
+
+V_rcb(1):= 'virat';
+V_rcb(6):= 'faf';
+V_rcb(5):= 'fbf';
+
+dbms_output.put_line(V_rcb.last);
+end;
+ 
+ 
+--- exist
+ declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+V_rcb(4):= 'viraat';
+
+V_rcb(1):= 'virat';
+V_rcb(6):= 'faf';
+V_rcb(5):= 'fbf';
+if V_rcb.exists(60) = true
+then
+dbms_output.put_line(' the values is there');
+else
+dbms_output.put_line(' the values is not there');
+end if;
+--dbms_output.put_line(V_rcb.last);
+end;
+  
+ -- prior
+  declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+V_rcb(4):= 'viraat';
+
+V_rcb(1):= 'virat';
+V_rcb(6):= 'faf';
+V_rcb(5):= 'fbf';
+
+dbms_output.put_line(V_rcb.prior(5));
+end;
+
+
+--next
+ declare 
+type V_chn is table of varchar2(20)
+index by simple_integer;
+ 
+V_rcb V_chn;
+
+begin
+V_rcb(4):= 'viraat';
+
+V_rcb(1):= 'virat';
+V_rcb(6):= 'faf';
+V_rcb(5):= 'fbf';
+
+dbms_output.put_line(V_rcb.next(1));
+end;
+  
+  
+-- limit
+declare
+type V_kkr is varray(20)of varchar2(20);
+V_srh V_kkr;
+begin
+V_srh:=V_kkr();
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+dbms_output.put_line(V_srh.limit);
+end;
+--trim
+declare
+type V_kkr is varray(20)of varchar2(20);
+V_srh V_kkr;
+begin
+V_srh:=V_kkr();
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+dbms_output.put_line(V_srh.count);
+V_srh.trim;
+dbms_output.put_line(V_srh.count);
+
+end;
+
+--trim(n)
+declare
+type V_kkr is varray(20)of varchar2(20);
+V_srh V_kkr;
+begin
+V_srh:=V_kkr();
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+dbms_output.put_line(V_srh.count);
+V_srh.trim(2);
+dbms_output.put_line(V_srh.count);
+
+end;
+
+
+--delete
+declare
+type V_kkr is varray(20)of varchar2(20);
+V_srh V_kkr;
+begin
+V_srh:=V_kkr();
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+dbms_output.put_line(V_srh.count);
+V_srh.delete;
+dbms_output.put_line(V_srh.count);
+
+end;
+-- delete()
+declare
+type V_kkr is table of varchar2(20);
+V_srh V_kkr:=V_kkr();
+begin
+V_srh.extend(5);
+V_srh(1):= 'hahi';
+V_srh(2):= 'haaahi';
+V_srh(3):= 'haahi';
+
+dbms_output.put_line(V_srh.count);
+V_srh.delete(1);
+dbms_output.put_line(V_srh.count);
+
+end;
