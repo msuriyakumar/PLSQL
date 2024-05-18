@@ -524,8 +524,8 @@ V_srh(1):= 'hahi';
 dbms_output.put_line(V_srh.count);
 V_srh.delete;
 dbms_output.put_line(V_srh.count);
-
 end;
+
 -- delete()
 declare
 type V_kkr is table of varchar2(20);
@@ -535,11 +535,9 @@ V_srh.extend(5);
 V_srh(1):= 'hahi';
 V_srh(2):= 'haaahi';
 V_srh(3):= 'haahi';
-
 dbms_output.put_line(V_srh.count);
 V_srh.delete(1);
 dbms_output.put_line(V_srh.count);
-
 end;
 
 -- multiset operator
