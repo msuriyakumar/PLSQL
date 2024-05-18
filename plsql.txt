@@ -541,3 +541,16 @@ V_srh.delete(1);
 dbms_output.put_line(V_srh.count);
 
 end;
+
+-- multiset operator
+declare
+type V_emp is table of varchar2(20);
+V_emp1 V_emp:= V_emp(1,2,3,4,5,6,11,12);
+V_emp2 V_emp:= V_emp(1,2,3,4,5,6,7,8,9);
+V_emp3 V_emp;
+begin
+V_emp3:= V_emp2 multiset union V_emp1;
+for i in V_emp3.first .. V_emp3.last loop
+dbms_output.put_line(V_emp3(i));
+end loop;
+end;
