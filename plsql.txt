@@ -552,3 +552,27 @@ for i in V_emp3.first .. V_emp3.last loop
 dbms_output.put_line(V_emp3(i));
 end loop;
 end;
+
+
+ declare
+ V_moon varchar(20) :='sonn';
+ begin
+ case V_moon
+ when 'son' then dbms_output.put_line ('the value is there');
+ when 'star' then  dbms_output.put_line('the value is not there');
+ else
+ dbms_output.put_line('absent');
+ end case;
+ end;
+ -- case expression statement
+ declare
+ V_jett varchar(20):='dash';
+ V_sage varchar(20);
+ begin
+ V_sage := case V_jett
+           when 'dash' then 'yes'
+           when 'blade' then 'no'
+           when 'fly' then 'alter'
+           end;
+dbms_output.put_line(V_sage);
+end;
