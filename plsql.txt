@@ -576,3 +576,85 @@ end;
            end;
 dbms_output.put_line(V_sage);
 end;
+
+--trigger
+create table iipl(
+csk varchar(20),
+rcb varchar(20),
+mi varchar(20),
+rr varchar(20)
+);
+create or replace trigger V_trigger
+before insert on iipl
+for each row
+enable
+declare
+V_tri varchar(20);
+begin 
+select user into V_tri from dual;
+dbms_output.put_line('you have inserted the values' || ' ' ||  V_tri);
+end;
+/
+insert into iipl 
+values('dhonii','kholii','rohiit','sanjuu'); 
+
+--
+create or replace trigger VV_triggerrr
+before insert or update or delete on iipl
+for each row
+enable
+declare
+V_cup varchar(20);
+begin 
+select user into V_cup from dual;
+if inserting then
+dbms_output.put_line(' you have inserted the value:' || V_cup);
+elsif updating then
+dbms_output.put_line(' you have updated the values:' || V_cup);
+elsif deleting then
+dbms_output.put_line(' you have deleted the values:' || V_cup);
+end if;
+end;
+
+insert into iipl 
+values ('rutu','faf','dk','buttler');
+
+update iipl
+set rcb = 'sirja' 
+where rcb = 'kholii';
+
+--- audting trigger
+
+create table zoooo(
+A_ID Varchar(20)
+);
+create table V_zooo(
+new_animal varchar(20),
+old_animal varchar(20),
+user_n varchar(20),
+entry_date varchar(20),
+operation varchar(20)
+);
+
+create or replace trigger V_trizooo
+before insert or delete or update on zoooo
+for each row
+enable
+declare
+V_user varchar(20);
+V_entry_date varchar(20);
+begin
+select user, to_char(sysdate,'dd/mon/yyyy HH24:mm:SS') into V_user,V_entry_date from dual;
+if inserting then
+insert into V_zooo(new_animal,old_animal,user_n,entry_date,operation)
+values (:new.A_ID,null,V_user,V_entry_date,'insert');
+end if;
+end;
+
+
+select *  from  V_zooo;
+
+
+insert into zoooo
+values ('tigerr');
+
