@@ -658,3 +658,33 @@ select *  from  V_zooo;
 insert into zoooo
 values ('tigerr');
 
+--for back up
+create table superheroes(
+V_name varchar2(20)
+);
+
+create table superheroes_backup(
+V_star varchar2(20)
+);
+
+create or replace trigger V_super
+before insert or delete or update on superheroes
+for each row
+enable
+begin
+if inserting then
+insert into superheroes_backup(V_star) values (:new.V_name);
+elsif updating then
+update superheroes_backup set V_star = :new.V_name where V_star = :old.V_name;
+elsif deleting then
+delete from superheroes_backup where V_star = :old.V_name;
+end if; 
+end;
+
+
+insert into superheroes 
+values('superman');
+
+
+select * from superheroes;
+select * from superheroes_backup;
