@@ -688,3 +688,23 @@ values('superman');
 
 select * from superheroes;
 select * from superheroes_backup;
+
+
+--ddl trigger
+create or replace trigger DDL_trigger
+after DDL on SCHEMA
+begin
+insert into DDL_tri values(
+sysdate,
+sys_context('userenv' , 'current_user'),
+ora_dict_obj_type,
+ora_dict_obj_name,
+ora_sysevent
+);
+end;
+
+
+create table V_test(
+V_hide number);
+drop table V_test;
+select * from DDL_tri;
