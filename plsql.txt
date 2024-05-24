@@ -708,3 +708,162 @@ create table V_test(
 V_hide number);
 drop table V_test;
 select * from DDL_tri;
+
+------------------------------------
+create table youtube(
+channel VARCHAR2(20),
+sub varchar(20),
+c_name varchar(20)
+);
+
+create or replace trigger youtri
+before insert or update or delete on youtube
+for each row
+enable
+declare
+V_user varchar2(20);
+V_date varchar2(20);
+begin
+select user, to_char(sysdate, 'HH:MM:SS') into V_user,V_date from dual;
+if inserting then
+dbms_output.put_line('you have inserted the value:' || V_user);
+end if;
+end;
+
+insert into youtube
+values
+('sir','jun','hum');
+--- backup
+create table valorant(
+Player varchar(20));
+
+create table Myvalo(
+playername varchar2(20),
+playerID int,
+userID varchar(20),
+logintime varchar2(20)
+);
+
+create or replace trigger Iam
+before insert or delete or update on valorant
+for each row
+enable
+declare
+V_user varchar2(20);
+V_date varchar2(20);
+begin
+select user,to_char(sysdate, 'HH24:MM:SS') into V_user,V_date from dual;
+if inserting then
+insert into myvalo(playername,playerID,userID,logintime)
+values(:new.player,'100',V_user,V_date);
+elsif updating then
+update myvalo set playername = :new.player where playername = :old.player;
+elsif deleting then
+delete from Myvalo where playername = :old.player;
+end if;
+end;
+
+
+select * from myvalo;
+insert into valorant 
+values ('jettt');
+
+update valorant
+set Player = 'ajith'
+where player = 'jettt';
+
+delete from valorant
+where player = 'jett';
+
+create table gamers(
+playerID varchar(20)
+);
+--audit
+create table V_gamer(
+V_player varchar(20),
+V_user varchar(20),
+V_login varchar(20),
+operation varchar(20)
+);
+
+create or replace trigger V_game
+before insert or update or delete on gamers
+for each row
+enable
+declare
+VV_user varchar(20);
+V_date varchar(20);
+begin
+select user, to_char(sysdate,'HH:MM:SS') into VV_user,V_date from dual;
+if inserting then
+insert into V_gamer(V_player,V_user,V_login,operation)
+values(:new.playerID,VV_user,V_date,'insert');
+elsif updating then
+insert into V_gamer(V_player,V_user,V_login,operation)
+values(:new.playerID,VV_user,V_date,'update');
+elsif deleting then
+insert into V_gamer(V_player,V_user,V_login,operation)
+values(:new.playerID,VV_user,V_date,'delete');
+end if;
+end;
+
+insert into gamers 
+values
+('suriya');
+
+
+select * from V_gamer;
+
+
+update gamers set playerID = 'chaaran'
+where playerID='charan';
+
+-- DDL
+create table DDD_L(
+V_event varchar(20),
+V_date date,
+V_user varchar(20),
+V_obj varchar(20),
+V_type varchar2(20)
+);
+
+create or replace trigger DDLtri
+after DDL on schema
+begin
+insert into DDD_L 
+values (
+ora_sysevent,
+sysdate,
+sys_context('userenv', 'current_user'),
+ora_dict_obj_name,
+ora_dict_obj_type);
+end;
+
+create table vard(
+name_V varchar(20));
+
+truncate table vard;
+
+select * from DDD_L;
+
+-- logon trigger
+create table LOG_on(
+log_on_event varchar2(20),
+log_on_time varchar2(20),
+log_on_date date,
+log_off_time varchar2(20),
+log_off_date date
+);
+
+create or replace trigger Log_on__trigger
+after logon on database
+begin
+insert into LOG_on values(
+ora_sysevent,
+to_char('sysdate','HH:MM:ss'),
+sysdate,
+null,
+null);
+--commit;
+end;
+
