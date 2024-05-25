@@ -867,3 +867,104 @@ null);
 --commit;
 end;
 
+
+--log off trigger
+
+create table V_logoff(
+V_event varchar(20),
+logon_time date,
+logone_user varchar(20),
+loggoff_time date,
+Logoff_user varchar(20));
+
+
+create or replace trigger logg_off
+before logoff on database
+begin 
+insert into V_logoff values(
+ora_sysevent,
+null,
+null,
+sysdate,
+sys_context('userenv','current_user')
+);
+commit;
+end;
+
+
+---start up
+create table starup_v(
+V_event varchar(20),
+V_date date,
+V_time varchar(20),
+user_V varchar(20),
+V_type varchar(20)
+);
+
+create or replace trigger V_start
+after startup on database
+begin
+insert into starup_v values(
+ora_sysevent,
+sysdate,
+to_char('sysdate','HH24:MM:SS'),
+sys_context('userenv','current_user'),
+ora_dict_obj_type
+);
+end;
+--instead of insert
+
+--table 1
+create table learner(
+V_stud varchar(20)
+);
+---table 2
+create table subject(
+V_sub varchar(20)
+);
+---create view
+create view V_vview as
+select V_stud,V_sub from learner,subject;
+
+--create trigger
+create or replace trigger V_ram
+instead  of insert on V_vview
+for each row
+begin
+insert into learner (V_stud) values (:new.V_stud);
+insert into subject (V_sub) values (:new.V_sub);
+end;
+
+insert into V_vview values ('suriya','oracle');
+
+select * from learner;
+
+select * from subject;
+
+-- instead of update
+
+create or replace trigger V_up
+instead of update on V_vview
+for each row
+begin
+update learner set V_stud = :new.V_stud where V_stud = :old.V_stud;
+update subject set V_sub = :new.V_sub where V_sub = :old.V_sub;
+end;
+
+update learner 
+set V_stud = 'mastr'
+where V_stud = 'suriya';
+
+select * from learner;
+
+
+--instead of delete
+create or replace trigger V_dele
+instead of delete on V_vview
+for each row
+begin 
+delete from learner where V_stud = :old.V_stud;
+end;
+
+
+delete from learner where V_stud = 'mastr';
