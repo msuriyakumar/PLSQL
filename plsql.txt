@@ -968,3 +968,34 @@ end;
 
 
 delete from learner where V_stud = 'mastr';
+
+--cursor
+create table coc(
+player_ID number,
+Player_name varchar(20),
+player_age int,
+player_g varchar(20)
+);
+
+insert into coc values('100','archer','2','female');
+insert into coc values('101','barbarian','3','male');
+insert into coc values('102','goblin','4','male');
+insert into coc values('103','healer','10','female');
+insert into coc values('104','dragon','20','male');
+
+----explicit cursor
+set serveroutput on;
+declare
+V_coc varchar(20);
+cursor V_cursor is
+select player_name from coc 
+where player_age<10;
+begin
+open V_cursor;
+loop
+fetch V_cursor into V_coc;
+dbms_output.put_line(V_coc);
+exit when V_cursor%notfound;
+end loop;
+close V_cursor;
+end;
