@@ -999,3 +999,49 @@ exit when V_cursor%notfound;
 end loop;
 close V_cursor;
 end;
+
+---with parameter
+
+set serveroutput on;
+declare
+V_boom number(20);
+cursor B_cur(jim number) is select player_age from coc where player_ID <= jim;
+begin 
+open B_cur(103);
+loop
+fetch B_cur into V_boom;
+dbms_output.put_line(V_boom);
+exit when B_cur%notfound;
+end loop;
+close B_cur;
+end;
+
+set serveroutput on;
+declare
+V_boom varchar(20);
+cursor B_cur(jim VARCHAR) is select player_g from coc where Player_name = jim;
+begin 
+open B_cur('archer');
+loop
+fetch B_cur into V_boom;
+dbms_output.put_line(V_boom);
+exit when B_cur%notfound;
+end loop;
+close B_cur;
+end;
+
+
+---parameter with default value
+set serveroutput on;
+declare
+V_gun coc.player_ID%type;
+V_toor coc.Player_name%type;
+cursor V_gim(V_tom varchar:=10) is select player_ID,Player_name from coc where player_age < V_tom;
+begin
+open V_gim;
+loop
+fetch V_gim into V_gun,V_toor;
+exit when V_gim%notfound;
+dbms_output.put_line(V_gun|| ' ' ||V_toor);
+end loop;
+end;
