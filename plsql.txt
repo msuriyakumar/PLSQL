@@ -1045,3 +1045,23 @@ exit when V_gim%notfound;
 dbms_output.put_line(V_gun|| ' ' ||V_toor);
 end loop;
 end;
+
+----for loop cursor
+declare
+cursor V_hoop is select player_ID, Player_name from coc where player_age < 10;
+begin 
+for V_ooo in V_hoop
+loop
+dbms_output.put_line(V_ooo.player_ID || ' ' || V_ooo.Player_name);
+end loop;
+end;
+
+--for loop with parameter
+declare
+cursor V_hit(V_char varchar:=10) is select player_ID,Player_name from coc where player_age < V_char;
+begin 
+for V_index in V_hit(10)
+loop
+dbms_output.put_line(V_index.player_ID||' '||V_index.Player_name);
+end loop;
+end;
