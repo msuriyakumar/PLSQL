@@ -1065,3 +1065,85 @@ loop
 dbms_output.put_line(V_index.player_ID||' '||V_index.Player_name);
 end loop;
 end;
+
+--- table based records
+create table states(
+tamil_nadu varchar(20),
+mumbai varchar(20),
+kolkata varchar(20),
+delhi varchar(20)
+);
+
+insert into states
+values('chennai','mart','vision','indiagate');
+
+insert into states
+values('theni','vart','mision','taj');
+
+insert into states
+values('pondi','kart','dision','mahal');
+
+
+declare
+
+V_num states%rowtype;
+
+begin
+select * into V_num from states where kolkata =  'dision';
+dbms_output.put_line(V_num.delhi);
+end;
+--with column name
+declare
+
+V_num states%rowtype;
+
+begin
+select mumbai into V_num.mumbai from states where kolkata =  'dision';
+dbms_output.put_line(V_num.mumbai);
+end;
+---cursor based records
+declare 
+cursor B_in is select * from states where kolkata =  'dision';
+V_num B_in%rowtype;
+begin
+open B_in;
+fetch B_in into V_num;
+dbms_output.put_line(V_num.mumbai);
+close B_in;
+end;
+
+declare
+cursor BC_in is select * from states where kolkata =  'dision';
+V_hut BC_in %rowtype;
+begin
+open BC_in;
+loop
+fetch BC_in into V_hut;
+dbms_output.put_line(V_hut.kolkata);
+end loop;
+end;
+--user record
+declare
+type V_record is record(V_num maggiem.prd_ID%type,
+                         V_star maggiem.cst_ID%type,
+                         V_moon yippey.prd_name%type);
+  V_juice V_record;
+  V_pizza V_record;
+  begin
+  select prd_ID,cst_ID,prd_name into V_juice from maggiem,yippey where prd_name ='leo';
+  dbms_output.put_line(V_juice.V_num || V_juice.V_star || V_juice.V_moon);
+  end;
+  /
+
+create or replace function V_function (n_um number)
+return number is
+pi constant number(7,3):=3.141;
+area number(7,3);
+begin
+area := pi *(n_um*n_um);
+return area;
+end;
+
+begin 
+dbms_output.put_line(V_function(10));
+end;
