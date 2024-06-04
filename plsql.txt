@@ -1147,3 +1147,43 @@ end;
 begin 
 dbms_output.put_line(V_function(10));
 end;
+
+
+CREATE OR REPLACE FUNCTION calculate_square(num IN NUMBER)
+RETURN NUMBER
+IS
+  square NUMBER;
+BEGIN
+  square := num * num;
+  RETURN square;
+END calculate_square;
+/
+
+
+DECLARE
+  result NUMBER;
+BEGIN
+  result := calculate_square(5);
+  DBMS_OUTPUT.PUT_LINE('Square of 5 is: ' || result);
+END;
+/
+
+
+create or replace function adder(n1 in number, n2 in number)    
+return number    
+is     
+n3 number(8);    
+begin    
+n3 :=n1+n2;    
+return n3;    
+end;    
+/    
+
+DECLARE    
+   n4 number(2);    
+BEGIN    
+   n4 := adder(11,22);    
+   dbms_output.put_line('Addition is: ' || n4);    
+END;    
+/    
+
