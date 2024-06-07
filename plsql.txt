@@ -1187,3 +1187,73 @@ BEGIN
 END;    
 /    
 
+create or replace procedure V_procedure
+is
+V_num VARCHAR(20);
+begin
+V_num:='masetr';
+dbms_output.put_line(V_num);
+end V_procedure;
+
+
+exec V_procedure;
+
+begin
+V_procedure;
+end;
+
+
+create table suriya(
+palaner varchar2(20),
+mastermind varchar2(20),
+business varchar2(20)
+);
+
+insert into suriya 
+values('boom','doom','dum');
+insert into suriya 
+values('sam','mam','mom');
+insert into suriya 
+values('yup','zup','sup');
+
+---position notation
+
+create or replace procedure V_pro(V_num VARCHAR2,V_bun VARCHAR2)
+is 
+begin
+update suriya set mastermind = V_num where business = V_bun;
+dbms_output.put_line('the values is updated');
+end;
+
+
+exec V_pro('huuut','sup');
+
+
+select * from suriya;
+
+--named notation
+
+create or replace function V_fun(V_num number, v_sun number default 0, V_tan number)
+return number
+is 
+begin 
+dbms_output.put_line('the values is' || V_num);
+dbms_output.put_line('the values is' || V_sun);
+dbms_output.put_line('the values is' || V_tan);
+return V_num+V_sun+V_tan;
+end V_fun;
+
+declare
+V_star number;
+begin
+V_star := V_fun(V_tan => 10,V_num => 200);
+dbms_output.put_line('V_result' || V_star);
+end;
+
+--mixed calling notation
+DECLARE
+  var_result  NUMBER;
+BEGIN
+  var_result := V_fun(V_tan => 10 , 30 ,V_num =>19);
+  DBMS_OUTPUT.put_line('Result ->' || var_result);
+END;
