@@ -1257,3 +1257,64 @@ BEGIN
   var_result := V_fun(V_tan => 10 , 30 ,V_num =>19);
   DBMS_OUTPUT.put_line('Result ->' || var_result);
 END;
+
+--packages
+create or replace package V_package is
+function V_function return varchar2;
+procedure V_procedure (V_num number,V_item number);
+end;
+create table V_hun(
+V_star number,
+V_moon number
+);
+
+create or replace package body V_package is 
+function V_function return varchar2 is
+begin 
+RETURN 'suriya';
+end;
+
+procedure V_procedure (V_num number,V_item number) is
+begin insert into V_hun (V_star,V_moon) values (V_num,V_item);
+end;
+end;
+
+begin
+dbms_output.put_line(V_package.V_function);
+end;
+
+begin 
+V_package.V_procedure(10,10);
+end;
+
+select * from V_hun;
+
+--variable exception
+set serveroutput on;
+declare
+V_num number:=0;
+V_star number:=20;
+V_moon number;
+V_ex exception;
+begin
+if (V_num = 0) then
+raise V_ex;
+end if;
+V_moon := V_star/V_num;
+dbms_output.put_line('the result:'|| V_moon);
+exception when V_ex then
+dbms_output.put_line('the error');
+end;
+
+--rasie application error
+accept master number prompt 'what is your age';
+declare
+V_num number := '&master';
+begin
+if (V_num <18) then
+raise_application_error(-20031,'your age not met exception');
+end if;
+dbms_output.put_line('what drink did you like');
+exception when others then
+dbms_output.put_line(sqlerrm);
+end;
