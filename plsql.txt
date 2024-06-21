@@ -1318,3 +1318,18 @@ dbms_output.put_line('what drink did you like');
 exception when others then
 dbms_output.put_line(sqlerrm);
 end;
+
+--pragma exception_init
+accept masss number prompt 'enter the number';
+declare
+V_num number := &masss;
+V_star exception;
+pragma exception_init(V_star,-20001);
+begin
+if (V_num <20) then
+raise_application_error(-20001,'you are not allowed');
+end if;
+dbms_output.put_line('you are allowed');
+exception when V_star then
+dbms_output.put_line(sqlerrm);
+end;
