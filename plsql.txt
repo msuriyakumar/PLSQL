@@ -1333,3 +1333,84 @@ dbms_output.put_line('you are allowed');
 exception when V_star then
 dbms_output.put_line(sqlerrm);
 end;
+create table scrible(
+playerID number,
+Playername varchar(20),
+Playerage int
+);
+select * from scrible;
+insert into scrible
+values(100,'suriya',20);
+insert into scrible
+values(101,'kumar',22);
+insert into scrible
+values(102,'madan',24);
+--ref cursor using table based records
+declare
+type V_ref is ref cursor return scrible%rowtype;
+V_fun V_ref;
+V_sun scrible%rowtype;
+begin
+open V_fun for select * from scrible where playername = 'madan';
+fetch V_fun into V_sun;
+close V_fun;
+dbms_output.put_line('the'||' ' ||  V_sun.playerID || ' ' || V_sun.playerage);
+end;
+
+create or replace function B_un (PID number)
+return number
+is 
+V_num number;
+begin
+V_num := PID;
+return V_num;
+end;
+
+begin 
+dbms_output.put_line(B_un(200));
+end;
+
+create or replace procedure B_uun(V_num number, V_sun varchar, V_moon int)
+is
+begin
+insert into scrible values (V_num,V_sun,V_moon);
+end;
+
+exec B_uun(10000,'matter',34);
+-- ref cursor using user record
+
+declare
+type B_in is record(V_ink scrible.playerID%type);
+type V_jin is ref cursor return B_in;
+V_bun V_jin;
+V_var scrible.playerID%type;
+begin
+open V_bun for select PlayerID from scrible where playername = 'madan';
+fetch V_bun into V_var;
+close V_bun;
+dbms_output.put_line(V_var);
+end;
+
+--weak ref cursor
+declare 
+type V_ug is ref cursor;
+V_ban V_ug;
+V_sun scrible.playerID%type;
+begin
+open V_ban for select playerID from scrible where playername='madan';
+fetch V_ban into V_sun;
+close V_ban;
+dbms_output.put_line(V_sun);
+end;
+
+--sys_refcursor
+declare 
+S_ur SYS_REFCURSOR;
+Doom scrible.playerID%type;
+begin
+open s_ur for select playerID from scrible where playername = 'kumar';
+fetch s_ur into doom;
+close s_ur;
+dbms_output.put_line(doom);
+end;
+
