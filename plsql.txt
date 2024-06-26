@@ -1414,3 +1414,68 @@ close s_ur;
 dbms_output.put_line(doom);
 end;
 
+create table bulk_c(
+V_name varchar(20),
+V_age int,
+V_dob date,
+V_number number
+);
+
+
+insert into bulk_c 
+Values ('suriya',22,'09-03-2000',9840669776);
+insert into bulk_c 
+Values ('kumar',22,'09-03-2000',9840669776);
+insert into bulk_c 
+Values ('madan',22,'09-03-2000',9840669776);
+insert into bulk_c 
+Values ('kishore',22,'09-03-2000',9840669776);
+insert into bulk_c 
+Values ('duke',22,'09-03-2000',9840669776);
+
+---bulk collect selet into
+declare
+type V_type is table of number;
+V_hype V_type;
+begin
+select V_number bulk collect into V_hype from bulk_c;
+for idx in 1 .. V_hype.count
+loop
+dbms_output.put_line(idx|| ' '||v_hype(idx));
+end loop;
+end;
+
+
+----bulk collect using fetch
+declare
+cursor V_ios is select V_name from bulk_c;
+type V_type is table of varchar(20);
+V_jun V_type;
+begin
+open V_ios;
+loop
+fetch V_ios bulk collect into V_jun;
+exit when V_jun.count=0;
+for ind in V_jun.first .. V_jun.last
+loop
+dbms_output.put_line(ind|| ' ' || V_jun(ind));
+end loop;
+end loop;
+close V_ios;
+end;
+declare
+cursor Vnot is select V_number FROM bulk_c;
+type yup is table of number;
+gap yup;
+begin
+open vnot;
+loop 
+fetch vnot bulk collect into gap limit 10;
+exit when gap.count = 0;
+for ioy in 1 .. gap.first
+loop
+dbms_output.put_line(ioy || ' ' || gap(ioy));
+end loop;
+end loop;
+end;
+
